@@ -1,6 +1,7 @@
 package com.example.reead_write2
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -28,6 +29,12 @@ class StudentAdapter(val students: MutableList<Student>) : RecyclerView.Adapter<
         textViewID.text = students[position].id
         textViewName.text = students[position].name
         textViewCountry.text = students[position].country
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(holder.itemView.context, EditDataActivity::class.java)
+            intent.putExtra("id", students[position].id)
+            holder.itemView.context.startActivity(intent)
+        }
 
         textViewName.setOnClickListener {
             db.collection("students").document(students[position].id)
